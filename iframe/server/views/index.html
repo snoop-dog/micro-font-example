@@ -1,0 +1,60 @@
+<!--
+ * @Description  : write something
+ * @Autor        : snoop
+ * @Date         : 2022-06-10 15:07:48
+ * @LastEditors  : snoop
+ * @LastEditTime : 2022-06-10 17:54:06
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iframe</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="/common.css">
+</head>
+<body>
+  <el-container id="app" class="container">
+    <el-header>
+      <el-col :span="4">iframe-example</el-col>
+      <keep-alive>
+        <el-tabs v-model="activeTab" @tab-click="handleClick">
+          <el-tab-pane v-for="item in tabList" :label="item.label" :name="item.name">
+            <iframe src="http://localhost:8080/" frameborder="0"></iframe>
+          </el-tab-pane>
+        </el-tabs>
+      </keep-alive>
+    </el-header>
+  </el-container>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        tabList: [
+          {
+            name: 'sub-vue',
+            label: 'sub-vue'
+          },
+          {
+            name: 'sub-react',
+            label: 'sub-react'
+          },
+        ],
+        activeTab: 'sub-vue'
+      }
+    },
+    methods: {
+      handleClick(tabItem) {
+        console.log(tabItem)
+      }
+    }
+  })
+</script>
+</html>
