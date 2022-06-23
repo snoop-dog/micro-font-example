@@ -5,6 +5,10 @@ body {
     font-family: Operator Mono;
 }
 
+[v-cloak] {
+    display: none;
+}
+
 .container .el-header {
     display: flex;
     align-items: center;
@@ -15,6 +19,10 @@ body {
     text-align: center;
     font-size: 1.2rem;
     font-weight: 600;
+}
+
+.el-header .el-tabs {
+    flex: 1;
 }
 
 .el-tabs__nav-wrap::after {

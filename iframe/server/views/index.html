@@ -3,7 +3,7 @@
  * @Autor        : snoop
  * @Date         : 2022-06-10 15:07:48
  * @LastEditors  : snoop
- * @LastEditTime : 2022-06-10 17:54:06
+ * @LastEditTime : 2022-06-21 15:02:29
 -->
 
 <!DOCTYPE html>
@@ -17,16 +17,15 @@
   <link rel="stylesheet" href="/common.css">
 </head>
 <body>
-  <el-container id="app" class="container">
+  <el-container id="app" class="container" v-cloak>
     <el-header>
       <el-col :span="4">iframe-example</el-col>
-      <keep-alive>
         <el-tabs v-model="activeTab" @tab-click="handleClick">
           <el-tab-pane v-for="item in tabList" :label="item.label" :name="item.name">
-            <iframe src="http://localhost:8080/" frameborder="0"></iframe>
+            <iframe v-show="activeTab === item.name" :src="item.src" frameborder="0"></iframe>
           </el-tab-pane>
         </el-tabs>
-      </keep-alive>
+      <el-col :span="2">总数：{{totalCount}}</el-col>
     </el-header>
   </el-container>
 </body>
@@ -40,14 +39,17 @@
         tabList: [
           {
             name: 'sub-vue',
-            label: 'sub-vue'
+            label: 'sub-vue',
+            src: 'http://localhost:8080'
           },
           {
             name: 'sub-react',
-            label: 'sub-react'
+            label: 'sub-react',
+            src: 'http://localhost:8081'
           },
         ],
-        activeTab: 'sub-vue'
+        activeTab: 'sub-vue',
+        totalCount: 0
       }
     },
     methods: {
