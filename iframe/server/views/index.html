@@ -3,7 +3,7 @@
  * @Autor        : snoop
  * @Date         : 2022-06-10 15:07:48
  * @LastEditors  : snoop
- * @LastEditTime : 2022-06-24 20:00:48
+ * @LastEditTime : 2022-06-25 15:35:53
 -->
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iframe</title>
-  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="/stylesheets/element-ui.css">
   <link rel="stylesheet" href="/common.css">
 </head>
 <body>
@@ -22,15 +22,15 @@
       <el-col :span="4">iframe-example</el-col>
         <el-tabs v-model="activeTab" @tab-click="handleClick">
           <el-tab-pane v-for="item in tabList" :label="item.label" :name="item.name">
-            <iframe v-show="activeTab === item.name" :src="item.src" frameborder="0"></iframe>
+            <iframe v-if="activeTab === item.name" :id="item.name" :src="item.src" frameborder="0"></iframe>
           </el-tab-pane>
         </el-tabs>
       <el-col :span="2">总数：{{totalCount}}</el-col>
     </el-header>
   </el-container>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="/javascripts/vue.min.js"></script>
+<script src="/javascripts/elment-ui.js"></script>
 <script>
   var app = new Vue({
     el: '#app',
@@ -49,11 +49,28 @@
           },
         ],
         activeTab: 'sub-vue',
-        totalCount: 0
+        reactCount: 0,
+        vueCount: 0
       }
+    },
+    computed: {
+      totalCount:function() {
+        return this.vueCount + this.reactCount
+      }
+    },
+    mounted() {
+      window.addEventListener('message', e => {
+        console.log(e)
+        this.reactCount = e.data.data
+      })
+
+      document.getElementById('sub-react').contentWindow.postMessage({
+        data: 'init'
+      }, '*')
     },
     methods: {
       handleClick(tabItem) {
+        console.log(this.vueCount)
         console.log(tabItem)
       }
     }

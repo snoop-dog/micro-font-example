@@ -3,7 +3,7 @@
  * @Autor        : snoop
  * @Date         : 2022-06-10 17:47:34
  * @LastEditors  : snoop
- * @LastEditTime : 2022-06-21 16:38:41
+ * @LastEditTime : 2022-06-25 11:41:29
 -->
 <template>
     <el-container>
@@ -26,6 +26,9 @@ export default {
     methods: {
         count() {
             this.vueCount++;
+            window.parent.postMessage({
+                data: this.vueCount
+            }, '*')
         },
     },
 };
